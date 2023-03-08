@@ -10,17 +10,17 @@ const { Title, Paragraph } = Typography;
 export default class ItemList extends Component {
   render() {
     return (
-      <Card style={{ boxShadow: "0 4px 12px 0 rgba(0, 0, 0, 0.15)" }}>
-        <Layout style={{ width: "414px", height: "280px" }}>
+      <Card className="card2">
+        <Layout className="layout">
           <Sider width={184}>
             <Image src="https://m.media-amazon.com/images/M/MV5BYjBjMTgyYzktN2U0Mi00YTJhLThkZDQtZmM1ZDlmNWMwZDQ3XkEyXkFqcGdeQXVyMDU5MDEyMA@@._V1_.jpg" />
           </Sider>
-          <Content style={{ padding: "12px 20px", backgroundColor: "#FFFFFF" }}>
+          <Content className="content">
             <Title level={3}>The way back</Title>
-            <Paragraph style={{ color: "#827E7E" }}>March 5, 2020</Paragraph>
+            <Paragraph className="paragraph">March 5, 2020</Paragraph>
             <Paragraph>
-              <Tag style={{ color: "rgba(0, 0, 0, 0.65)" }}>Action</Tag>
-              <Tag style={{ color: "rgba(0, 0, 0, 0.65)" }}>Drama</Tag>
+              <Tag className="tag">Action</Tag>
+              <Tag className="tag">Drama</Tag>
             </Paragraph>
             <Paragraph>
               A former basketball all-star, who has lost his wife and family

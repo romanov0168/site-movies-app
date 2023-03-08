@@ -1,4 +1,10 @@
-#root {
+/* #root {
   max-width: 1000px;
   margin: 0 auto;
+} */
+
+.app {
+  display: flex;
+  align-items: center;
+  background-color: #e5e5e5;
 }

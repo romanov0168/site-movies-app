@@ -1,7 +1,29 @@
-.item-list .list-group-item {
+/* .item-list .list-group-item {
   cursor: pointer;
 }
 
 .item-list .list-group-item:hover {
   background-color: #444;
+} */
+
+.card2 {
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+}
+
+.card2 .layout {
+  width: 414px;
+  height: 280px;
+}
+
+.card2 .content {
+  padding: 12px 20px;
+  background-color: #ffffff;
+}
+
+.card2 .paragraph {
+  color: #827e7e;
+}
+
+.card2 .tag {
+  color: rgba(0, 0, 0, 0.65);
 }

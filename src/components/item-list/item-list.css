@@ -1,7 +1,13 @@
-.item-list .list-group-item {
+/* .item-list .list-group-item {
   cursor: pointer;
 }
 
 .item-list .list-group-item:hover {
   background-color: #444;
+} */
+
+.space {
+  width: 1024px;
+  padding: 20px 30px;
+  background-color: #ffffff;
 }

@@ -7,19 +7,13 @@ import PersonDetails from "../person-details";
 
 import { Layout } from "antd";
 
-// import "./app.css";
+import "./app.css";
 
 import "antd/dist/reset.css";
 
 const App = () => {
   return (
-    <Layout
-      style={{
-        display: "flex",
-        alignItems: "center",
-        backgroundColor: "#E5E5E5",
-      }}
-    >
+    <Layout className="app">
       <ItemList />
     </Layout>
 
