@@ -5,23 +5,37 @@ import RandomPlanet from "../random-planet";
 import ItemList from "../item-list";
 import PersonDetails from "../person-details";
 
-import "./app.css";
+import { Layout } from "antd";
+
+// import "./app.css";
+
+import "antd/dist/reset.css";
 
 const App = () => {
   return (
-    <div>
-      <Header />
-      <RandomPlanet />
+    <Layout
+      style={{
+        display: "flex",
+        alignItems: "center",
+        backgroundColor: "#E5E5E5",
+      }}
+    >
+      <ItemList />
+    </Layout>
 
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails />
-        </div>
-      </div>
-    </div>
+    // <div>
+    //   <Header />
+    //   <RandomPlanet />
+
+    //   <div className="row mb2">
+    //     <div className="col-md-6">
+    //       <ItemList />
+    //     </div>
+    //     <div className="col-md-6">
+    //       <PersonDetails />
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 
