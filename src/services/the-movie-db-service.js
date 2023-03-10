@@ -27,9 +27,3 @@ export default class TheMovieDBService {
     return res.genres;
   }
 }
-
-// const theMovieDB = new TheMovieDBService();
-
-// theMovieDB.getMoviesByQuery().then((object) => {
-//   console.log(object, "object");
-// });

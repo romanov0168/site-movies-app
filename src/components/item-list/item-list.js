@@ -41,25 +41,21 @@ export default class ItemList extends Component {
 
   render() {
     const { itemList, genresList } = this.state;
-    let item;
-    let item2;
+    let elements;
+    let idCounter = 0;
 
     if (itemList) {
-      item = itemList[0];
-      item2 = itemList[1];
+      elements = itemList.map((item) => {
+        idCounter++;
+
+        return <Item key={idCounter} item={item} genresList={genresList} />;
+      });
     }
 
     return (
       <Space wrap size={36} className="space">
-        <Item item={item} genresList={genresList} />
-        <Item item={item2} genresList={genresList} />
+        {elements}
       </Space>
-
-      // <ul className="item-list list-group">
-      //   <li className="list-group-item">Luke Skywalker</li>
-      //   <li className="list-group-item">Darth Vader</li>
-      //   <li className="list-group-item">R2-D2</li>
-      // </ul>
     );
   }
 }

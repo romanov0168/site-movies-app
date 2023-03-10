@@ -18,40 +18,47 @@ export default class Item extends Component {
 
   render() {
     const { item, genresList } = this.props;
-    let genresList2;
+    let actualGenresList;
+    let elements;
+    let idCounter = 0;
 
     if (item && genresList) {
-      genresList2 = item.genre_ids.map((id) => {
+      actualGenresList = item.genre_ids.map((id) => {
         return genresList.find((genre) => {
           return genre.id === id;
         }).name;
       });
-      console.log(genresList2);
+
+      elements = actualGenresList.map((item) => {
+        idCounter++;
+
+        return (
+          <Tag key={idCounter} className="tag">
+            {item}
+          </Tag>
+        );
+      });
     }
 
-    //Сколько жанров отображать? Сколько жанров может быть? .length?
     return (
       <Card className="card2">
         <Layout className="layout">
           <Sider width={184}>
             <Image
               src={
-                item
+                item.poster_path
                   ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${item.poster_path}`
-                  : null
+                  : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-4ee37443c461fff5bc221b43ae018a5dae317469c8e2479a87d562537dd45fdc.svg"
               }
             />
           </Sider>
           <Content className="content">
-            <Title level={3}>{item ? item.title : null}</Title>
+            <Title level={3}>{item.title}</Title>
             <Paragraph className="paragraph">
-              {item ? this.formatDate(item.release_date) : null}
+              {this.formatDate(item.release_date)}
             </Paragraph>
-            <Paragraph>
-              <Tag className="tag">{genresList2 ? genresList2[0] : null}</Tag>
-              <Tag className="tag">{genresList2 ? genresList2[1] : null}</Tag>
-            </Paragraph>
-            <Paragraph>{item ? item.overview : null}</Paragraph>
+            <Paragraph>{elements}</Paragraph>
+            <Paragraph>{item.overview}</Paragraph>
           </Content>
         </Layout>
       </Card>
