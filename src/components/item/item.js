@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { Card, Layout, Image, Typography, Tag } from "antd";
+import { format } from "date-fns";
 
 import "./item.css";
 
@@ -9,11 +10,16 @@ const { Title, Paragraph } = Typography;
 
 export default class Item extends Component {
   formatDate(date) {
-    return new Date(date).toLocaleDateString("en-us", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    // return new Date(date).toLocaleDateString("en-us", {
+    //   year: "numeric",
+    //   month: "long",
+    //   day: "numeric",
+    // });
+    if (date === "") {
+      return null;
+    }
+
+    return format(new Date(date), "MMMM dd, yyyy").toString();
   }
 
   render() {
@@ -21,6 +27,7 @@ export default class Item extends Component {
     let actualGenresList;
     let elements;
     let idCounter = 0;
+    let overview;
 
     if (item && genresList) {
       actualGenresList = item.genre_ids.map((id) => {
@@ -38,6 +45,20 @@ export default class Item extends Component {
           </Tag>
         );
       });
+
+      //Надо навести тут порядок. Надо подумать над тем, как выводить
+      //максимальное количество слов, которое умещается.
+      //Например, можно определять длину названия, наличие даты, количество
+      //тегов и в зависимости от этого определять длину описания
+      //Или мб можно как-то определить количество свободного места в
+      //пикселях
+      if (item.overview !== "") {
+        overview = item.overview;
+        overview = overview.split(" ");
+        overview = overview.slice(0, 10);
+        overview = overview.join(" ");
+        overview = overview + " ...";
+      }
     }
 
     return (
@@ -58,7 +79,7 @@ export default class Item extends Component {
               {this.formatDate(item.release_date)}
             </Paragraph>
             <Paragraph>{elements}</Paragraph>
-            <Paragraph>{item.overview}</Paragraph>
+            <Paragraph>{overview}</Paragraph>
           </Content>
         </Layout>
       </Card>
