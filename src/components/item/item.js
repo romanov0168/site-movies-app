@@ -9,6 +9,11 @@ const { Sider, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 export default class Item extends Component {
+  state = {
+    wordLimit: 0,
+    addition: " ...",
+  };
+
   formatDate(date) {
     // return new Date(date).toLocaleDateString("en-us", {
     //   year: "numeric",
@@ -19,24 +24,62 @@ export default class Item extends Component {
       return null;
     }
 
-    return format(new Date(date), "MMMM dd, yyyy").toString();
+    return format(new Date(date), "MMMM dd, yyyy");
+  }
+
+  isEnough = false;
+  root = document.getElementById("root");
+  isEnd = false;
+
+  addWord(originalLength, id) {
+    let content =
+      this.root.children[0].children[0].children[id - 1].children[0].children[0]
+        .children[0].children[1];
+    let headerHeight =
+      content.children[0].clientHeight +
+      12 +
+      (content.children[1].clientHeight + 14) * 2 +
+      content.children[2].clientHeight;
+    let maxFooterHeight = content.clientHeight - headerHeight;
+    let footerHeight = content.children[3].clientHeight;
+
+    if (
+      footerHeight < maxFooterHeight &&
+      this.state.wordLimit < originalLength &&
+      this.isEnd === false
+    ) {
+      this.setState(() => {
+        return { wordLimit: this.state.wordLimit + 1 };
+      });
+    } else if (this.state.wordLimit === originalLength) {
+      this.setState(() => {
+        return { addition: "" };
+      });
+      this.isEnough = true;
+    } else if (this.state.wordLimit > originalLength && this.isEnd === false) {
+      this.setState(() => {
+        return { wordLimit: this.state.wordLimit - 2 };
+      });
+      this.isEnd = true;
+    }
   }
 
   render() {
-    const { item, genresList } = this.props;
-    let actualGenresList;
+    const { item, genresList, id } = this.props;
+    let matchingGenresList;
     let elements;
     let idCounter = 0;
     let overview;
+    let originalLength;
 
     if (item && genresList) {
-      actualGenresList = item.genre_ids.map((id) => {
+      matchingGenresList = item.genre_ids.map((id) => {
         return genresList.find((genre) => {
           return genre.id === id;
         }).name;
       });
 
-      elements = actualGenresList.map((item) => {
+      elements = matchingGenresList.map((item) => {
         idCounter++;
 
         return (
@@ -46,18 +89,14 @@ export default class Item extends Component {
         );
       });
 
-      //Надо навести тут порядок. Надо подумать над тем, как выводить
-      //максимальное количество слов, которое умещается.
-      //Например, можно определять длину названия, наличие даты, количество
-      //тегов и в зависимости от этого определять длину описания
-      //Или мб можно как-то определить количество свободного места в
-      //пикселях
       if (item.overview !== "") {
-        overview = item.overview;
-        overview = overview.split(" ");
-        overview = overview.slice(0, 10);
-        overview = overview.join(" ");
-        overview = overview + " ...";
+        overview = item.overview.split(" ");
+        originalLength = overview.length;
+        overview =
+          overview.slice(0, this.state.wordLimit).join(" ") +
+          this.state.addition;
+
+        setTimeout(this.addWord.bind(this, originalLength, id), 1);
       }
     }
 

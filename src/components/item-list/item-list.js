@@ -48,7 +48,14 @@ export default class ItemList extends Component {
       elements = itemList.map((item) => {
         idCounter++;
 
-        return <Item key={idCounter} item={item} genresList={genresList} />;
+        return (
+          <Item
+            key={idCounter}
+            item={item}
+            genresList={genresList}
+            id={idCounter}
+          />
+        );
       });
     }
 
