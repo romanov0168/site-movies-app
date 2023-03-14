@@ -12,6 +12,7 @@ export default class Item extends Component {
   state = {
     wordLimit: 0,
     addition: "",
+    loading: true,
   };
 
   formatDate(date) {
