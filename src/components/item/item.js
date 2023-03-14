@@ -11,7 +11,7 @@ const { Title, Paragraph } = Typography;
 export default class Item extends Component {
   state = {
     wordLimit: 0,
-    addition: " ...",
+    addition: "",
   };
 
   formatDate(date) {
@@ -27,9 +27,8 @@ export default class Item extends Component {
     return format(new Date(date), "MMMM dd, yyyy");
   }
 
-  isEnough = false;
   root = document.getElementById("root");
-  isEnd = false;
+  isEnough = false;
 
   addWord(originalLength, id) {
     let content =
@@ -46,21 +45,24 @@ export default class Item extends Component {
     if (
       footerHeight < maxFooterHeight &&
       this.state.wordLimit < originalLength &&
-      this.isEnd === false
+      this.isEnough === false
     ) {
       this.setState(() => {
-        return { wordLimit: this.state.wordLimit + 1 };
+        return { wordLimit: this.state.wordLimit + 1, addition: " ..." };
       });
+    } else if (
+      this.state.wordLimit < originalLength &&
+      this.isEnough === false &&
+      this.state.wordLimit > 0
+    ) {
+      this.setState(() => {
+        return { wordLimit: this.state.wordLimit - 2 };
+      });
+      this.isEnough = true;
     } else if (this.state.wordLimit === originalLength) {
       this.setState(() => {
         return { addition: "" };
       });
-      this.isEnough = true;
-    } else if (this.state.wordLimit > originalLength && this.isEnd === false) {
-      this.setState(() => {
-        return { wordLimit: this.state.wordLimit - 2 };
-      });
-      this.isEnd = true;
     }
   }
 
